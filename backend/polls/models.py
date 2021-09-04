@@ -26,3 +26,14 @@ class Question(models.Model):
 
     def __str__(self):
         return self.text
+
+
+class Answer(models.Model):
+    text = models.TextField()
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
+
+
+class Attempt(models.Model):
+    user = models.ManyToManyField(get_user_model(), related_name='attempts')
+    poll = models.ForeignKey(Poll, on_delete=models.SET_NULL, related_name='attempts', null=True)
+    # answers = models.JsonField()
