@@ -1,6 +1,5 @@
 from django.contrib import admin
 from . import models
-from .forms import PollForm
 
 
 class QuestionInline(admin.TabularInline):
@@ -9,8 +8,10 @@ class QuestionInline(admin.TabularInline):
 
 
 class PollAdmin(admin.ModelAdmin):
-    form = PollForm
     inlines = (QuestionInline, )
+
+    def get_readonly_fields(self, request, obj=None):
+        return ['date_start'] if obj else []
 
 
 class AnswerInline(admin.TabularInline):
