@@ -1,18 +1,21 @@
 from django.contrib import admin
 from . import models
+from .forms import PollForm
 
 
 class QuestionInline(admin.TabularInline):
     model = models.Question
+    extra = 0
 
 
 class PollAdmin(admin.ModelAdmin):
+    form = PollForm
     inlines = (QuestionInline, )
 
 
 class AnswerInline(admin.TabularInline):
     model = models.Answer
-    extra = 1
+    extra = 0
 
 
 class QuestionAdmin(admin.ModelAdmin):
